@@ -92,23 +92,35 @@ export class AudioManager extends EventEmitter<AudioEvents> {
   }
 
   /**
+   * Get AudioContext constructor with cross-browser compatibility
+   */
+  private getAudioContextClass(): typeof AudioContext | undefined {
+    if (typeof AudioContext !== 'undefined') {
+      return AudioContext;
+    }
+    // Webkit fallback for older Safari
+    const windowWithWebkit = window as { webkitAudioContext?: typeof AudioContext };
+    if (typeof windowWithWebkit.webkitAudioContext !== 'undefined') {
+      return windowWithWebkit.webkitAudioContext;
+    }
+    return undefined;
+  }
+
+  /**
    * Initialize the audio system
    */
   init(): void {
     if (this._initialized) return;
 
-    // Check for Web Audio API support
-    if (typeof AudioContext === 'undefined' && typeof (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext === 'undefined') {
+    const AudioContextClass = this.getAudioContextClass();
+    if (!AudioContextClass) {
       console.warn('Web Audio API not supported');
       this._initialized = true;
       return;
     }
 
     try {
-      const AudioContextClass = AudioContext || (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-      if (AudioContextClass) {
-        this.context = new AudioContextClass();
-      }
+      this.context = new AudioContextClass();
     } catch (_e) {
       console.warn('Failed to create AudioContext');
       this._initialized = true;

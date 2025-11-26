@@ -291,10 +291,14 @@ export class Engine extends EventEmitter<EngineEvents> {
   pause(): void {
     if (!this._running || this._paused) return;
 
-    this._paused = true;
-    this._state = EngineState.Paused;
-    this.scenes.pause();
-    this.emit('engine:pause', undefined);
+    try {
+      this.scenes.pause();
+      this._paused = true;
+      this._state = EngineState.Paused;
+      this.emit('engine:pause', undefined);
+    } catch (error) {
+      console.error('Error pausing engine:', error);
+    }
   }
 
   /**

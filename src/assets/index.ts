@@ -269,8 +269,10 @@ export class AssetManager extends EventEmitter<AssetEvents> {
   private async loadFont(family: string, url: string): Promise<FontFace> {
     const font = new FontFace(family, `url(${url})`);
     await font.load();
-    // TypeScript DOM lib may not include FontFaceSet.add, but it exists at runtime
-    (document.fonts as unknown as Set<FontFace>).add(font);
+    // Add font to document.fonts if the add method exists
+    if (document.fonts && typeof (document.fonts as unknown as { add?: (font: FontFace) => void }).add === 'function') {
+      (document.fonts as unknown as { add: (font: FontFace) => void }).add(font);
+    }
     return font;
   }
 
