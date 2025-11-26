@@ -1,0 +1,49 @@
+{
+  "name": "next-gen-game-engine",
+  "version": "1.0.0",
+  "description": "A modern, high-performance, state-of-the-art game engine with ECS architecture, physics, audio, and more",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
+  },
+  "keywords": [
+    "game-engine",
+    "game-development",
+    "ecs",
+    "entity-component-system",
+    "physics",
+    "2d",
+    "3d",
+    "webgl",
+    "canvas",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MASSIVEMAGNETICS/next-gen-game-engine"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.9.3"
+  }
+}
