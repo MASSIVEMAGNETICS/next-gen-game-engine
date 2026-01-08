@@ -122,6 +122,15 @@ export {
   Easings
 } from './scene';
 
+// Mini game collection
+export {
+  registerMiniGamePack,
+  MiniGameRegistration,
+  NeonRunnerSystem,
+  OrbitalRescueSystem,
+  StarCollectorSystem
+} from './scene/miniGames';
+
 // Default export - the main Engine class
 import { Engine } from './core';
 export default Engine;

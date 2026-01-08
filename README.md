@@ -343,16 +343,41 @@ async function main() {
   engine.world.addComponent(player, new RigidBody2D(1, 0.1, 0, 0)); // No gravity
   engine.world.addComponent(player, new CircleCollider2D(16));
 
-  // Start game
-  engine.start();
+// Start game
+engine.start();
 
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    engine.resize(window.innerWidth, window.innerHeight);
-  });
+// Handle window resize
+window.addEventListener('resize', () => {
+  engine.resize(window.innerWidth, window.innerHeight);
+});
 }
 
 main();
+```
+
+## 🎲 Built-in Mini Games
+
+The engine ships with three original, ready-to-run mini games that double as living examples:
+
+- **Neon Runner** – outrun shifting towers on a neon highway with sprint bursts.
+- **Orbital Rescue** – orbit a micro-planet and sync up with drifting capsules.
+- **Star Collector** – glide between lanes to scoop up passing starlight.
+
+Register them with any engine instance and load like normal scenes:
+
+```typescript
+import Engine, { registerMiniGamePack } from 'next-gen-game-engine';
+
+const engine = new Engine({ width: 800, height: 600, canvas: myCanvas });
+await engine.init();
+
+// Register all mini games
+const games = registerMiniGamePack(engine);
+console.log('Mini games ready:', games.map(g => g.name));
+
+// Jump into one
+await engine.scenes.loadScene('mini:neon-runner');
+engine.start();
 ```
 
 ## 📖 API Reference
@@ -455,4 +480,3 @@ MIT License - see LICENSE file for details
 ## 🙏 Acknowledgments
 
 Built with ❤️ using modern TypeScript and game development best practices.
-
