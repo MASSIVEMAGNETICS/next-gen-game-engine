@@ -58,7 +58,7 @@ describe('Mini game pack', () => {
     await engine.scenes.loadScene('mini:star-collector');
 
     // steer upward for the first star so we definitely interact
-    (engine.input as any).handleKeyDown({ code: KeyCode.ArrowUp, key: 'ArrowUp', repeat: false } as KeyboardEvent);
+    engine.input.simulateKeyDown(KeyCode.ArrowUp);
 
     const scene = engine.scenes.currentScene as BasicScene;
     const system = scene.world.getSystem<StarCollectorSystem>('StarCollectorSystem');
